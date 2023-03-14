@@ -1,4 +1,5 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, renderHook, screen, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import App from './App';
 
 jest.mock("axios", () => ({
@@ -103,7 +104,8 @@ test("button should dispaly loading", () => {
 
   fireEvent.change(usernameInputEl, { target: { value: textValue } })
   fireEvent.change(passwordInputEl, { target: { value: textValue } });
-  fireEvent.click(buttonEl);
+  
+    fireEvent.click(buttonEl);
 
   expect(buttonEl).toHaveTextContent(/loading/i)
 });
@@ -118,7 +120,7 @@ test("button shouldn't dispaly loading after fetching", async() => {
 
   fireEvent.change(usernameInputEl, { target: { value: textValue } })
   fireEvent.change(passwordInputEl, { target: { value: textValue } });
-  fireEvent.click(buttonEl);
+    fireEvent.click(buttonEl);
 
   await waitFor(() => expect(buttonEl).not.toHaveTextContent(/loading/i))
 });
@@ -133,7 +135,8 @@ test("user should dispaly after fetching", async() => {
 
   fireEvent.change(usernameInputEl, { target: { value: textValue } })
   fireEvent.change(passwordInputEl, { target: { value: textValue } });
-  fireEvent.click(buttonEl);
+    fireEvent.click(buttonEl);
+
 
   const userItem = await screen.findByText("John")
 
